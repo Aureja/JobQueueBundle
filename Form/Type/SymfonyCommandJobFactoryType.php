@@ -12,6 +12,7 @@
 namespace Aureja\Bundle\JobQueueBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,7 +32,7 @@ class SymfonyCommandJobFactoryType extends AbstractType
     {
         $builder->add(
             'symfony_command',
-            'text',
+            TextType::class,
             [
                 'label' => 'Symfony command',
                 'constraints' => new Assert\NotBlank(),
@@ -49,13 +50,5 @@ class SymfonyCommandJobFactoryType extends AbstractType
                 'label' => false,
             ]
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'aureja_symfony_command_job_factory';
     }
 }

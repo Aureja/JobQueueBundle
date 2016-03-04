@@ -12,6 +12,7 @@
 namespace Aureja\Bundle\JobQueueBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,7 +32,7 @@ class PhpJobFactoryType extends AbstractType
     {
         $builder->add(
             'php_script',
-            'textarea',
+            TextareaType::class,
             [
                 'label' => 'Php script',
                 'constraints' => new Assert\NotBlank(),
@@ -49,13 +50,5 @@ class PhpJobFactoryType extends AbstractType
                 'label' => false,
             ]
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'aureja_php_job_factory';
     }
 }

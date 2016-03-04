@@ -14,6 +14,7 @@ namespace Aureja\Bundle\JobQueueBundle\Form\Subscriber;
 use Aureja\JobQueue\Model\JobConfigurationInterface;
 use Aureja\JobQueue\Provider\JobProviderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -65,11 +66,11 @@ class AddJobFactorySubscriber implements EventSubscriberInterface
 
             $form->add(
                 'factory',
-                'choice',
+                ChoiceType::class,
                 [
                     'label' => 'job_type',
                     'choices' => $this->getFactoryNameChoices(),
-                    'empty_value' => 'select',
+                    'placeholder' => 'select',
                     'constraints' => new Assert\NotBlank(),
                 ]
             );

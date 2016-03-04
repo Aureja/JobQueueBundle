@@ -38,22 +38,22 @@
 
         <!--Php job factory form type-->
         <service id="aureja_job_queue.form_type.php_job_factory" class="Aureja\Bundle\JobQueueBundle\Form\Type\PhpJobFactoryType">
-            <tag name="form.type" alias="aureja_php_job_factory" />
+            <tag name="form.type" />
         </service>
 
         <!--Shell job factory form type-->
         <service id="aureja_job_queue.form_type.shell_job_factory" class="Aureja\Bundle\JobQueueBundle\Form\Type\ShellJobFactoryType">
-            <tag name="form.type" alias="aureja_shell_job_factory" />
+            <tag name="form.type" />
         </service>
 
         <!--Symfony command job factory form type-->
         <service id="aureja_job_queue.form_type.symfony_command_job_factory" class="Aureja\Bundle\JobQueueBundle\Form\Type\SymfonyCommandJobFactoryType">
-            <tag name="form.type" alias="aureja_symfony_command_job_factory" />
+            <tag name="form.type" />
         </service>
 
         <!--Symfony service job factory form type-->
         <service id="aureja_job_queue.form_type.symfony_service_job_factory" class="Aureja\Bundle\JobQueueBundle\Form\Type\SymfonyServiceJobFactoryType">
-            <tag name="form.type" alias="aureja_symfony_service_job_factory" />
+            <tag name="form.type" />
         </service>
 
     </services>

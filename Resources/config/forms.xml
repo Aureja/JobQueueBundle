@@ -21,7 +21,7 @@
             <factory service="form.factory" method="createNamed"/>
 
             <argument>aureja_job_configuration_form</argument>
-            <argument>aureja_job_configuration</argument>
+            <argument>Aureja\Bundle\JobQueueBundle\Form\Type\JobConfigurationType</argument>
         </service>
 
     </services>

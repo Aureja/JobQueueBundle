@@ -12,6 +12,7 @@
 namespace Aureja\Bundle\JobQueueBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,7 +32,7 @@ class ShellJobFactoryType extends AbstractType
     {
         $builder->add(
             'shell_command',
-            'text',
+            TextType::class,
             [
                 'label' => 'Shell command',
                 'constraints' => new Assert\NotBlank(),
@@ -49,13 +50,5 @@ class ShellJobFactoryType extends AbstractType
                 'label' => false,
             ]
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'aureja_shell_job_factory';
     }
 }

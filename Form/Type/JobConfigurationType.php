@@ -15,6 +15,11 @@ use Aureja\Bundle\JobQueueBundle\Form\Subscriber\AddJobFactorySubscriber;
 use Aureja\Bundle\JobQueueBundle\Form\Subscriber\AddJobParametersSubscriber;
 use Aureja\Bundle\JobQueueBundle\Validator\Constraints\UniqueJobConfiguration;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -74,7 +79,7 @@ class JobConfigurationType extends AbstractType
     {
         $builder->add(
             'name',
-            'text',
+            TextType::class,
             [
                 'label' => 'name',
                 'constraints' => [
@@ -86,7 +91,7 @@ class JobConfigurationType extends AbstractType
 
         $builder->add(
             'enabled',
-            'checkbox',
+            CheckboxType::class,
             [
                 'label' => 'enabled',
                 'required' => false,
@@ -95,7 +100,7 @@ class JobConfigurationType extends AbstractType
 
         $builder->add(
             'period',
-            'integer',
+            IntegerType::class,
             [
                 'label' => 'period',
                 'constraints' => new Assert\NotBlank(),
@@ -104,18 +109,18 @@ class JobConfigurationType extends AbstractType
 
         $builder->add(
             'queue',
-            'choice',
+            ChoiceType::class,
             [
                 'label' => 'queue',
                 'choices' => $this->getQueueChoices(),
-                'empty_value' => 'select',
+                'placeholder' => 'select',
                 'constraints' => new Assert\NotBlank(),
             ]
         );
 
         $builder->add(
             'submit',
-            'submit',
+            SubmitType::class,
             [
                 'label' => 'save'
             ]
@@ -137,14 +142,6 @@ class JobConfigurationType extends AbstractType
                 'translation_domain' => 'AurejaJobQueue',
             ]
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'aureja_job_configuration';
     }
 
     /**
