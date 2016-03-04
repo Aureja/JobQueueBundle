@@ -12,7 +12,7 @@ composer require aureja/job-queue-bundle "dev-master"
 
 **Step 2**. Add to `AppKernel.php`
 
-```
+```php
 class AppKernel extends Kernel
 {
     /**
@@ -31,7 +31,7 @@ class AppKernel extends Kernel
 
 **Step 3**. Define your entities by extending Aureja models or implementing the interfaces
 
-```
+```php
 <?php
 // src/Acme/YourBundle/Entity/JobReport.php
 
@@ -68,7 +68,7 @@ class JobReport extends BaseJobReport
 
 ```
 
-```
+```php
 <?php
 // src/Acme/YourBundle/Entity/JobConfiguration.php
 
@@ -100,7 +100,7 @@ class JobConfiguration extends BaseJobConfiguration
 
 **Step 5**. Configure via `app/config/config.yml`
 
-```
+```yml
 # app/config/config.yml
 
 aureja_job_queue:
@@ -117,7 +117,7 @@ aureja_job_queue:
 
 **Step 6**. Import AurejaJobQueue routing files
 
-```
+```yml
 # app/config/routing.yml
 
 aureja_job_queue:
