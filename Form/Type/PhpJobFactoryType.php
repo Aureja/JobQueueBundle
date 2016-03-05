@@ -11,6 +11,7 @@
 
 namespace Aureja\Bundle\JobQueueBundle\Form\Type;
 
+use Aureja\Bundle\JobQueueBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,7 @@ class PhpJobFactoryType extends AbstractType
     {
         $builder->add(
             'php_script',
-            'textarea',
+            LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\TextareaType'),
             [
                 'label' => 'Php script',
                 'constraints' => new Assert\NotBlank(),
@@ -55,6 +56,14 @@ class PhpJobFactoryType extends AbstractType
      * {@inheritdoc}
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'aureja_php_job_factory';
     }

@@ -11,6 +11,7 @@
 
 namespace Aureja\Bundle\JobQueueBundle\Form\Type;
 
+use Aureja\Bundle\JobQueueBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,7 @@ class SymfonyCommandJobFactoryType extends AbstractType
     {
         $builder->add(
             'symfony_command',
-            'text',
+            LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\TextType'),
             [
                 'label' => 'Symfony command',
                 'constraints' => new Assert\NotBlank(),
@@ -55,6 +56,14 @@ class SymfonyCommandJobFactoryType extends AbstractType
      * {@inheritdoc}
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'aureja_symfony_command_job_factory';
     }

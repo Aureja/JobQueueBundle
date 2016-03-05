@@ -11,11 +11,11 @@
 
 namespace Aureja\Bundle\JobQueueBundle\Form\Subscriber;
 
+use Aureja\Bundle\JobQueueBundle\Form\Type\JobFactoryTypeMap;
 use Aureja\JobQueue\Model\JobConfigurationInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
 
 /**
  * @author Tadas Gliaubicas <tadcka89@gmail.com>
@@ -47,7 +47,7 @@ class AddJobParametersSubscriber implements EventSubscriberInterface
         if ($data instanceof JobConfigurationInterface && $data->getId()) {
             $form = $event->getForm();
 
-            $form->add('parameters', $data->getFactory());
+            $form->add('parameters', JobFactoryTypeMap::getType($data->getFactory()));
         }
     }
 }

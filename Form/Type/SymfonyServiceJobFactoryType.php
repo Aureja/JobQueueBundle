@@ -11,6 +11,7 @@
 
 namespace Aureja\Bundle\JobQueueBundle\Form\Type;
 
+use Aureja\Bundle\JobQueueBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,7 @@ class SymfonyServiceJobFactoryType extends AbstractType
     {
         $builder->add(
             'symfony_service_id',
-            'text',
+            LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\TextType'),
             [
                 'label' => 'Symfony service id',
                 'constraints' => new Assert\NotBlank(),
@@ -40,7 +41,7 @@ class SymfonyServiceJobFactoryType extends AbstractType
 
         $builder->add(
             'symfony_service_method',
-            'text',
+            LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\TextType'),
             [
                 'label' => 'Symfony service method',
                 'constraints' => new Assert\NotBlank(),
@@ -64,6 +65,14 @@ class SymfonyServiceJobFactoryType extends AbstractType
      * {@inheritdoc}
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'aureja_symfony_service_job_factory';
     }

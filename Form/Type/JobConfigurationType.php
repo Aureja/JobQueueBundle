@@ -13,6 +13,7 @@ namespace Aureja\Bundle\JobQueueBundle\Form\Type;
 
 use Aureja\Bundle\JobQueueBundle\Form\Subscriber\AddJobFactorySubscriber;
 use Aureja\Bundle\JobQueueBundle\Form\Subscriber\AddJobParametersSubscriber;
+use Aureja\Bundle\JobQueueBundle\Util\LegacyFormHelper;
 use Aureja\Bundle\JobQueueBundle\Validator\Constraints\UniqueJobConfiguration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -72,54 +73,51 @@ class JobConfigurationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(
-            'name',
-            'text',
-            [
-                'label' => 'name',
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Length(['min' => 3, 'max' => 255])
-                ],
-            ]
-        );
-
-        $builder->add(
-            'enabled',
-            'checkbox',
-            [
-                'label' => 'enabled',
-                'required' => false,
-            ]
-        );
-
-        $builder->add(
-            'period',
-            'integer',
-            [
-                'label' => 'period',
-                'constraints' => new Assert\NotBlank(),
-            ]
-        );
-
-        $builder->add(
-            'queue',
-            'choice',
-            [
-                'label' => 'queue',
-                'choices' => $this->getQueueChoices(),
-                'empty_value' => 'select',
-                'constraints' => new Assert\NotBlank(),
-            ]
-        );
-
-        $builder->add(
-            'submit',
-            'submit',
-            [
-                'label' => 'save'
-            ]
-        );
+        $builder
+            ->add(
+                'name',
+                LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\TextType'),
+                [
+                    'label' => 'name',
+                    'constraints' => [
+                        new Assert\NotBlank(),
+                        new Assert\Length(['min' => 3, 'max' => 255])
+                    ],
+                ]
+            )
+            ->add(
+                'enabled',
+                LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\CheckboxType'),
+                [
+                    'label' => 'enabled',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'period',
+                LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\IntegerType'),
+                [
+                    'label' => 'period',
+                    'constraints' => new Assert\NotBlank(),
+                ]
+            )
+            ->add(
+                'queue',
+                LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\ChoiceType'),
+                [
+                    'label' => 'queue',
+                    'choices' => $this->getQueueChoices(),
+                    (LegacyFormHelper::isLegacy() ? 'empty_value' : 'placeholder') => 'select',
+                    'constraints' => new Assert\NotBlank(),
+                ]
+            )
+            ->add(
+                'submit',
+                LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\SubmitType'),
+                [
+                    'label' => 'save'
+                ]
+            );
 
         $builder->addEventSubscriber($this->factorySubscriber);
         $builder->addEventSubscriber($this->parametersSubscriber);
@@ -143,6 +141,14 @@ class JobConfigurationType extends AbstractType
      * {@inheritdoc}
      */
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'aureja_job_configuration';
     }
