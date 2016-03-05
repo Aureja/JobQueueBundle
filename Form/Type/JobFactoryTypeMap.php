@@ -48,4 +48,3 @@ class JobFactoryTypeMap
         return self::$map[$factoryName];
     }
 }
- 

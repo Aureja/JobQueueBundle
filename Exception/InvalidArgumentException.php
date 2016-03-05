@@ -30,4 +30,3 @@ class InvalidArgumentException extends BaseInvalidArgumentException
         return new static();
     }
 }
- 
