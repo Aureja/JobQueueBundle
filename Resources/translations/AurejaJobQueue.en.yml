@@ -4,6 +4,7 @@ aureja_symfony_command_job_factory: Symfony command
 aureja_symfony_service_job_factory: Symfony service
 
 enabled: Enabled
+auto_restorable: Auto restorable
 job_type: Job type
 name: Name
 period: Period (s)

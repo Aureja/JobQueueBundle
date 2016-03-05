@@ -4,6 +4,7 @@ aureja_symfony_command_job_factory: Symfony command
 aureja_symfony_service_job_factory: Symfony service
 
 enabled: Matomas
+auto_restorable: Automatiškai atstatyti
 job_type: Užduoties tipas
 name: Pavadinimas
 period: Periodas (s)
