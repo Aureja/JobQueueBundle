@@ -94,6 +94,14 @@ class JobConfigurationType extends AbstractType
                 ]
             )
             ->add(
+                'autoRestorable',
+                LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\CheckboxType'),
+                [
+                    'label' => 'auto_restorable',
+                    'required' => false,
+                ]
+            )
+            ->add(
                 'period',
                 LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\IntegerType'),
                 [
