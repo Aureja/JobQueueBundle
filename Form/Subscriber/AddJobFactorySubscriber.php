@@ -11,6 +11,7 @@
 
 namespace Aureja\Bundle\JobQueueBundle\Form\Subscriber;
 
+use Aureja\Bundle\JobQueueBundle\Util\LegacyFormHelper;
 use Aureja\JobQueue\Model\JobConfigurationInterface;
 use Aureja\JobQueue\Provider\JobProviderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -65,11 +66,11 @@ class AddJobFactorySubscriber implements EventSubscriberInterface
 
             $form->add(
                 'factory',
-                'choice',
+                LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\ChoiceType'),
                 [
                     'label' => 'job_type',
                     'choices' => $this->getFactoryNameChoices(),
-                    'empty_value' => 'select',
+                    (LegacyFormHelper::isLegacy() ? 'empty_value' : 'placeholder') => 'select',
                     'constraints' => new Assert\NotBlank(),
                 ]
             );

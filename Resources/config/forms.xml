@@ -17,11 +17,13 @@
 
     <services>
 
+        <service id="aureja_job_queue.helper.legacy_form" class="Aureja\Bundle\JobQueueBundle\Util\LegacyFormHelper" />
+
         <service id="aureja_job_queue.form.job_configuration" class="Symfony\Component\Form\Form">
             <factory service="form.factory" method="createNamed"/>
 
             <argument>aureja_job_configuration_form</argument>
-            <argument>aureja_job_configuration</argument>
+            <argument type="expression">service('aureja_job_queue.helper.legacy_form').getType('Aureja\\Bundle\\JobQueueBundle\\Form\\Type\\JobConfigurationType')</argument>
         </service>
 
     </services>
