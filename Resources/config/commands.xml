@@ -19,6 +19,8 @@
 
         <service id="aureja_job_queue.command.list" class="Aureja\JobQueue\Command\ListCommand">
             <tag name="console.command" />
+
+            <argument type="service" id="aureja_job_queue.manager.job_configuration" />
         </service>
 
         <service id="aureja_job_queue.command.reset" class="Aureja\JobQueue\Command\ResetCommand">

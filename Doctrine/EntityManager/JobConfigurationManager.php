@@ -94,15 +94,19 @@ class JobConfigurationManager extends BaseJobConfigurationManager
         $qb = $this->repository->createQueryBuilder('jc');
 
         $qb
+            ->select('jc')
             ->andWhere($qb->expr()->in('jc.state', ':states'))
-            ->setParameter('states', [JobState::STATE_RUNNING, JobState::STATE_FAILED])
             ->andWhere($qb->expr()->eq('jc.enabled', $qb->expr()->literal(1)))
+            ->andWhere($qb->expr()->eq('jc.autoRestorable', $qb->expr()->literal(1)))
             ->andWhere(
-                $qb->expr()->orX($qb->expr()->isNull('jc.nextStart'), $qb->expr()->lte('jc.nextStart', ':nextStart'))
+                $qb->expr()->orX(
+                    $qb->expr()->isNull('jc.nextStart'),
+                    $qb->expr()->lte('jc.nextStart', ':nextStart')
+                )
             )
-            ->setParameter('nextStart', $nextStart, Type::DATETIME)
             ->orderBy('jc.orderNr', 'ASC')
-            ->select('jc');
+            ->setParameter('nextStart', $nextStart, Type::DATETIME)
+            ->setParameter('states', [JobState::STATE_RUNNING, JobState::STATE_FAILED]);
 
         if (null !== $queue) {
             $qb
@@ -133,6 +137,18 @@ class JobConfigurationManager extends BaseJobConfigurationManager
             ->select('jc');
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfigurations($queue = null)
+    {
+        if (null === $queue) {
+            return $this->repository->findAll();
+        }
+
+        return $this->repository->findBy(['queue' => $queue]);
     }
 
     /**
