@@ -101,7 +101,6 @@ class JobConfigurationType extends AbstractType
                     'constraints' => new Assert\NotBlank(),
                 ]
             )
-
             ->add(
                 'queue',
                 LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\ChoiceType'),
