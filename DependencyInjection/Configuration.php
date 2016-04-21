@@ -26,17 +26,28 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
+                ->scalarNode('db_driver')
+                    ->cannotBeOverwritten()->isRequired()
+                ->end()
+            
                 ->scalarNode('job_configuration_manager')
-                    ->defaultValue('aureja_job_queue.manager.job_configuration.default')->cannotBeEmpty()->end()
+                    ->defaultValue('aureja_job_queue.manager.job_configuration.default')->cannotBeEmpty()
+                ->end()
+
                 ->scalarNode('job_report_manager')
-                    ->defaultValue('aureja_job_queue.manager.job_report.default')->cannotBeEmpty()->end()
+                    ->defaultValue('aureja_job_queue.manager.job_report.default')->cannotBeEmpty()
+                ->end()
+
                 ->arrayNode('class')->isRequired()
                     ->children()
                         ->arrayNode('model')->isRequired()
                             ->children()
-                                ->scalarNode('job_configuration')->isRequired()->end()
-                                ->scalarNode('job_report')->isRequired()->end()
+                                ->scalarNode('job_configuration')
+                                    ->isRequired()
+                                ->end()
+                                ->scalarNode('job_report')
+                                    ->isRequired()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -56,11 +67,15 @@ class Configuration implements ConfigurationInterface
 
                 ->arrayNode('reset')->addDefaultsIfNotSet()
                     ->children()
-                        ->integerNode('timeout')->min(60)->defaultValue(600)
+                        ->integerNode('timeout')
+                            ->min(60)->defaultValue(600)
+                        ->end()
                     ->end()
                 ->end()
 
-                ->scalarNode('console_dir')->defaultValue('%kernel.root_dir%')->cannotBeEmpty()->end()
+                ->scalarNode('console_dir')
+                    ->defaultValue('%kernel.root_dir%')->cannotBeEmpty()
+                ->end()
             ->end();
 
         return $treeBuilder;
