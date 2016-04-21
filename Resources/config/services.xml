@@ -27,7 +27,7 @@
         </service>
 
         <service id="aureja_job_queue.builder.symfony_command" class="Aureja\JobQueue\Extension\Symfony\Command\CommandBuilder">
-            <argument>%kernel.root_dir%</argument>
+            <argument>%aureja_job_queue.console_dir%</argument>
             <argument>%kernel.environment%</argument>
         </service>
 

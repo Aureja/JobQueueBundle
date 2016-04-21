@@ -59,6 +59,8 @@ class Configuration implements ConfigurationInterface
                         ->integerNode('timeout')->min(60)->defaultValue(600)
                     ->end()
                 ->end()
+
+                ->scalarNode('console_dir')->defaultValue('%kernel.root_dir%')->cannotBeEmpty()->end()
             ->end();
 
         return $treeBuilder;
