@@ -50,5 +50,6 @@ class AurejaJobQueueExtension extends Extension
         $container->setParameter($this->getAlias() . '.model.job_report.class', $config['class']['model']['job_report']);
         $container->setParameter($this->getAlias() . '.queues', $config['queues']);
         $container->setParameter($this->getAlias() . '.reset.timeout', $config['reset']['timeout']);
+        $container->setParameter($this->getAlias() . '.console_dir', $config['console_dir']);
     }
 }
