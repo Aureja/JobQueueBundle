@@ -42,16 +42,22 @@ class JobConfigurationManager extends BaseJobConfigurationManager
     protected $class;
 
     /**
+     * @var int
+     */
+    protected $resetTimeout;
+
+    /**
      * Constructor.
      *
      * @param EntityManager $em
      * @param string $class
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(EntityManager $em, $class, $resetTimeout)
     {
         $this->em = $em;
         $this->repository = $em->getRepository($class);
         $this->class = $em->getClassMetadata($class)->name;
+        $this->resetTimeout = $resetTimeout;
     }
 
     /**
@@ -89,9 +95,11 @@ class JobConfigurationManager extends BaseJobConfigurationManager
     /**
      * {@inheritdoc}
      */
-    public function findPotentialDeadJobs(\DateTime $nextStart, $queue)
+    public function findPotentialDeadJobs($queue)
     {
         $qb = $this->repository->createQueryBuilder('jc');
+        $nextStart = new \DateTime();
+        $nextStart->modify(sprintf('- %d seconds', $this->resetTimeout));
 
         $qb
             ->select('jc')

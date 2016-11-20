@@ -22,6 +22,7 @@
                  class="Aureja\Bundle\JobQueueBundle\Doctrine\EntityManager\JobConfigurationManager">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument>%aureja_job_queue.model.job_configuration.class%</argument>
+            <argument>%aureja_job_queue.reset.timeout%</argument>
         </service>
 
         <!--Job report default manager-->

@@ -11,10 +11,12 @@
     "require": {
         "php": ">=5.4",
 
-        "aureja/job-queue": "0.1.*",
-        "symfony/framework-bundle" : ">=2.7|~3.0"
+        "aureja/job-queue": "0.2.*@dev",
+        "symfony/framework-bundle" : ">=2.7|~3.0",
+        "doctrine/doctrine-bundle": "~1.4"
     },
     "require-dev": {
+        "doctrine/orm": "~2.4,>=2.4.5",
         "phpunit/phpunit": "~4.2"
     },
     "suggest": {
