@@ -1,0 +1,47 @@
+framework:
+    secret: secret
+    test: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+        storage_id: session.storage.filesystem
+        # https://groups.google.com/forum/#!topic/symfony2/IB-CpMgo5o0
+        name: MOCKSESSID
+    profiler:
+        collect: false
+    router:
+        resource: "%kernel.root_dir%/routing.yml"
+        strict_requirements: ~
+    templating:
+        engines: [twig]
+
+twig:
+    debug: "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: "%kernel.cache_dir%/test.db"
+        charset: UTF8
+    orm:
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    AurejaJobQueueBundle:
+                        type: xml
+                        dir: "%kernel.root_dir%/../App/Resources/config/doctrine"
+                        prefix: "Aureja\\Bundle\\JobQueueBundle\\Tests\\App\\Entity"
+
+# Aureja job queue configuration
+aureja_job_queue:
+    db_driver: orm
+    class:
+        model:
+            job_configuration: "Aureja\\Bundle\\JobQueueBundle\\Tests\\App\\Entity\\JobConfiguration"
+            job_report: "Aureja\\Bundle\\JobQueueBundle\\Tests\\App\\Entity\\JobReport"
+    queues:
+        - default
+        - import

@@ -18,7 +18,7 @@
     <services>
 
         <service id="aureja_job_queue.form_subscriber.add_job_factory" class="Aureja\Bundle\JobQueueBundle\Form\Subscriber\AddJobFactorySubscriber">
-            <argument type="service" id="aureja_job_queue.provider.job" />
+            <argument type="service" id="aureja_job_queue.registry.job_factory" />
         </service>
 
         <service id="aureja_job_queue.form_subscriber.add_job_parameters" class="Aureja\Bundle\JobQueueBundle\Form\Subscriber\AddJobParametersSubscriber" />

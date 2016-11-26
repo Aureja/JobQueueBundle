@@ -12,8 +12,8 @@
 namespace Aureja\Bundle\JobQueueBundle\Form\Subscriber;
 
 use Aureja\Bundle\JobQueueBundle\Util\LegacyFormHelper;
+use Aureja\JobQueue\JobFactoryRegistry;
 use Aureja\JobQueue\Model\JobConfigurationInterface;
-use Aureja\JobQueue\Provider\JobProviderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -28,18 +28,18 @@ class AddJobFactorySubscriber implements EventSubscriberInterface
 {
 
     /**
-     * @var JobProviderInterface
+     * @var JobFactoryRegistry
      */
-    private $jobProvider;
+    private $registry;
 
     /**
      * Constructor.
      *
-     * @param JobProviderInterface $jobProvider
+     * @param JobFactoryRegistry $registry
      */
-    public function __construct(JobProviderInterface $jobProvider)
+    public function __construct(JobFactoryRegistry $registry)
     {
-        $this->jobProvider = $jobProvider;
+        $this->registry = $registry;
     }
 
     /**
@@ -82,7 +82,7 @@ class AddJobFactorySubscriber implements EventSubscriberInterface
      */
     private function getFactoryNameChoices()
     {
-        $names = $this->jobProvider->getFactoryNames();
+        $names = $this->registry->getNames();
 
         return array_combine($names, $names);
     }
