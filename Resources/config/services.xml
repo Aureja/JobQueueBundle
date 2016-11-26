@@ -19,11 +19,11 @@
 
         <service id="aureja_job_queue" class="Aureja\JobQueue\JobQueue">
             <argument type="service" id="aureja_job_queue.manager.job_configuration" />
-            <argument type="service" id="aureja_job_queue.provider.job" />
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="aureja_job_queue.registry.job_factory" />
             <argument type="service" id="aureja_job_queue.manager.job_report" />
             <argument type="service" id="aureja_job_queue.manager.job_restore" />
             <argument>%aureja_job_queue.queues%</argument>
-            <argument>%aureja_job_queue.reset.timeout%</argument>
         </service>
 
         <service id="aureja_job_queue.builder.symfony_command" class="Aureja\JobQueue\Extension\Symfony\Command\CommandBuilder">
@@ -35,11 +35,7 @@
             <argument type="service" id="aureja_job_queue.manager.job_report" />
         </service>
 
-        <service id="aureja_job_queue.provider.job" class="Aureja\JobQueue\Provider\JobProvider">
-            <argument type="service" id="aureja_job_queue.registry.job_factory" />
-        </service>
-
-        <service id="aureja_job_queue.registry.job_factory" class="Aureja\JobQueue\Register\JobFactoryRegistry" />
+        <service id="aureja_job_queue.registry.job_factory" class="Aureja\JobQueue\JobFactoryRegistry" />
 
         <service id="aureja_job_queue.validator.unique_job_configuration" class="Aureja\Bundle\JobQueueBundle\Validator\Constraints\UniqueJobConfigurationValidator">
             <tag name="validator.constraint_validator" alias="aureja_job_queue.unique_job_configuration"/>

@@ -22,7 +22,7 @@
 
         <field name="autoRestorable" column="auto_restorable" type="boolean" nullable="false" />
 
-        <field name="factory" column="factory" type="string" length="255" nullable="false" />
+        <field name="factoryName" column="factory_name" type="string" length="255" nullable="false" />
 
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true" />
 
